@@ -4,7 +4,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-
 /**
  * This program is a very simple implementation of John H. Conway's famous "Game of Life".
  * In this game, the user sets up a board that contains a grid of cells, where each cell can be 
@@ -66,7 +65,7 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
                                         // (Should probably not be less than 10 or more than 200,)
 
     private boolean[][] alive;   // Represents the board.  alive[r][c] is true if the cell in row r, column c is alive.
-    
+
     private MosaicPanel display;  // Displays the game to the user..  White squares are alive; black squares are dead.
 
     private Timer timer;  // Drives the game when the user presses the "Start" button.
@@ -77,8 +76,6 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
     private JButton  clearButton;   // Button for clearing the board, that is setting all the cells to "dead".
     private JButton  quitButton;    // Button for ending the program.
 
-    
-    
     /**
      * Create a life game board, initially empty.  The number of cells on each side of the grid is GRID_SIZE.
      */
@@ -115,7 +112,6 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         timer = new Timer(50,this);
     }
 
-    
     /**
      * YOUR SOLUTION CODE GOES HERE
      * Compute the next generation of cells.  The "alive" array is modified to reflect the
@@ -128,10 +124,46 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         // implement the game rules -- see top comment
         // start without the wrap around, add the wrap feature after testing the rules in
         // a bounded world.
-        
+
+        for (int row = 0; row < newboard.length; row++) {
+            for (int col = 0; col < newboard.length; col++) {
+                if (newboard[row][col]) {
+                    int neighbors = 0;
+                    if(newboard[row-1][col]){
+                        neighbors++;
+                    } 
+                    if (newboard[row+1][col]){
+                        neighbors++;
+                    }
+                    if (newboard[row][col-1]){
+                        neighbors++;
+                    }
+                    if (newboard[row][col+1]){
+                        neighbors++;
+                    }
+                    if (newboard[row-1][col-1]){
+                        neighbors++;
+                    }
+                    if (newboard[row-1][col+1]){
+                        neighbors++;
+                    }
+                    if (newboard[row+1][col+1]){
+                        neighbors++;
+                    }
+                    if (newboard[row+1][col-1]){
+                        neighbors++;
+                    }
+                    if (neighbors == 0 || neighbors == 1 || neighbors == 4){
+                        newboard[row][col] = false;
+                    }
+                } else {
+                    
+                }
+            }
+        }
+
         alive = newboard;
     }
-
 
     /**
      *  Sets the color of every square in the display to show whether the corresponding
@@ -149,7 +181,6 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         }
         display.setAutopaint(true);  // Redraw the whole board, and turn on drawing of individual squares.
     }
-
 
     /**
      * Respond to an ActionEvent from one of the control buttons or from the timer.
@@ -196,7 +227,6 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         }
     }
 
-
     /**
      * The square containing the mouse comes to life or, if the right-mouse button is down, dies.
      */
@@ -217,7 +247,6 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         }
     }
 
-
     /**
      * The square containing the mouse comes to life or, if the right-mouse button is down, dies.
      */
@@ -227,9 +256,11 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
 
     public void mouseClicked(MouseEvent e) { }  // Other methods required by the MouseListener and MouseMotionListener interfaces.
     public void mouseEntered(MouseEvent e) { }
-    public void mouseExited(MouseEvent e) { }
-    public void mouseReleased(MouseEvent e) { }
-    public void mouseMoved(MouseEvent e) { }
 
+public void mouseExited(MouseEvent e) { }
+
+public void mouseReleased(MouseEvent e) { }
+
+public void mouseMoved(MouseEvent e) { }
 
 }
